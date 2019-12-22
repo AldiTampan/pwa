@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#01a9f4" />
+    <link rel="icon" type="image/png" href="images/icon.png" sizes="48x48">
+    <!-- icon in the highest resolution we need it for -->
+    <link rel="icon" sizes="192x192" href="images/icon.png">
+
+    <!-- reuse same icon for Safari -->
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <title>Pembayaran</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="author" href="humans.txt">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <form action="#" name="kasir">
+        <center>
+            <h1>Bakmi Jawa Mahal</h1>
+            <i>Pak Pothol</i>
+        </center>
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th colspan="7">
+                        <h3>Pemesanan</h3></th>
+                </tr>
+                <tr>
+                    <th>Menu</th>
+                    <th>Nama Item</th>
+                    <th>Harga</th>
+                    <th>Banyaknya</th>
+                    <th>Jumlah</th>
+                    <th class="no-print">Action</th>
+                </tr>
+            </thead>
+            <tbody class="hidden">
+                <tr id="template">
+                    <td>
+                        <select name="menu_{NO}" onchange="process({NO})">
+                            <option value="mkn">Makanan</option>
+                            <option value="mnm">Minuman</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="item_{NO}" onchange="process({NO})">
+                            <option value="">-- Silahkan Pilih Menu --</option>
+                            <optgroup id="itemMkn_{NO}" label="Makanan">
+                                <option value="nsgrg">Nasi Goreng</option>
+                                <option value="nsgdg">Nasi Godog
+                                </option>
+                                <option value="miegrg">Mie Goreng</option>
+                                <option value="miegdg">Mie Godog
+                                </option>
+                                <option value="cpjgrg">Capcay Goreng</option>
+                                <option value="cpjgdg">Capcay Godog</option>
+                            </optgroup>
+                            <optgroup id="itemMnm_{NO}" label="Minuman" disabled="disabled">
+                                <option value="teh">Teh</option>
+                                <option value="jeruk">Jeruk</option>
+                                <option value="kp">Kopi Pahit
+                                </option>
+                            </optgroup>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="text-right" name="harga_{NO}" value="0" disabled="disabled">
+                    </td>
+                    <td>
+                        <input type="number" class="text-right" name="qty_{NO}" value="1" onchange="process({NO})">
+                    </td>
+                    <td>
+                        <input type="text" class="jml text-right" name="jml_{NO}" value="0" disabled="disabled">
+                    </td>
+                    <td class="no-print">
+                        <a class="button button-hapus" href="javascript:void(0)" onclick="hapus(this)">Hapus</a>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody id="list">
+            </tbody>
+            <tfoot>
+                <tr class="no-print">
+                    <td colspan="7">
+                        <a class="button button-tambah" href="javascript:void(0)" onclick="tambah()">+ Tambah Pesanan</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th colspan="7">
+                        <h3>Pembayaran</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="6">Total</td>
+                    <td>
+                        <input type="text" class="text-right" name="total" value="0" disabled="disabled">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">Bayar</td>
+                    <td>
+                        <input type="text" class="text-right" name="bayar" onkeyup="process()">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">Kembalian</td>
+                    <td>
+                        <input type="text" class="text-right" name="kembali" value="0" disabled="disabled">
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </form>
+    <center>
+        <strong>Kelompok Rempong</strong>
+    </center>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('myModal').style.display = 'none';">&times;</span>
+            <p>Oops, You're offline</p>
+        </div>
+
+    </div>
+    <script src="magic.js"></script>
+    <script type="text/javascript">
+        (function() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./service-worker.js').then(function() {
+                    console.log('Service Worker Registered');
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>
